@@ -5,10 +5,6 @@ class ReusableDialog extends HTMLElement {
     this.confirmationMsg = confirmationMsg;
   }
 
-  static get attributes(){
-    return ["confirmationMsg"];
-  }
-
   closeModal(){
     this.shadow.innerHTML = ``;
   }
@@ -27,10 +23,9 @@ class ReusableDialog extends HTMLElement {
     confirmBtn.addEventListener('click', () => this.handleModalSelect('confirm'))
     denyBtn.addEventListener('click', () => this.handleModalSelect('deny'))
   }
-
   render(){
     this.shadow.innerHTML = `
-      <div>
+      <div style='${modalStyle}' class='modal'>
         <h2>${this.confirmationMsg}</h2>
         <div class='modal-btn-container'>
           <button id='confirm'>Yes</button>

@@ -1,7 +1,8 @@
-const openModalBtn = document.querySelector('.open-modal');
+const openModalBtn = document.querySelectorAll('.open-modal');
 
-const myDialog = new ReusableDialog("Hello");
-
-openModalBtn.addEventListener('click', () => {
-  document.body.append(myDialog);
+openModalBtn.forEach(btn => {
+  const myDialog = new ReusableDialog(btn.dataset.modalMsg);
+  btn.addEventListener('click', () => {
+    document.body.append(myDialog);
+  })
 })
