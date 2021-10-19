@@ -1,11 +1,8 @@
 class ReusableDialog extends HTMLElement {
-  constructor(){
+  constructor(confirmationMsg){
     super();
     this.shadow = this.attachShadow({mode: 'open'})
-  }
-
-  get confirmationMsg() {
-    return this.getAttribute("confirmationMsg");
+    this.confirmationMsg = confirmationMsg;
   }
 
   static get attributes(){
@@ -43,5 +40,4 @@ class ReusableDialog extends HTMLElement {
     `
   };
 };
-
 customElements.define("reusable-dialog", ReusableDialog);
