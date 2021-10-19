@@ -1,8 +1,29 @@
+const modalContainerStyle = `background-color: red;`
+
+const modalStyle = `
+position: absolute; 
+height: 500px; 
+width: 500px; 
+margin-left: auto; 
+margin-right: auto; 
+right: 0; 
+left: 0; 
+background-color: white; 
+display: flex; 
+flex-direction: column; 
+justify-content: center; 
+align-items: center;`
+
+
 class ReusableDialog extends HTMLElement {
   constructor(confirmationMsg){
     super();
+    
     this.shadow = this.attachShadow({mode: 'open'})
     this.confirmationMsg = confirmationMsg;
+    this.clickedMsg;
+    this.confirmMsg = "You clicked yes";
+    this.denyMsg = "You clicked no";
   }
 
   closeModal(){
@@ -10,8 +31,7 @@ class ReusableDialog extends HTMLElement {
   }
 
   handleModalSelect(type){
-    //Return the message dependent on type (either confirm or deny), then close modal;
-    alert(type);
+    this.clickedMsg = type === "confirm" ? this.confirmMsg : this.denyMsg
     this.closeModal();
   }
 
@@ -25,11 +45,13 @@ class ReusableDialog extends HTMLElement {
   }
   render(){
     this.shadow.innerHTML = `
-      <div style='${modalStyle}' class='modal'>
-        <h2>${this.confirmationMsg}</h2>
-        <div class='modal-btn-container'>
-          <button id='confirm'>Yes</button>
-          <button id='deny'>No</button>
+      <div style='${modalContainerStyle}'>
+        <div style='${modalStyle}'>
+          <h2>${this.confirmationMsg}</h2>
+          <div class='modal-btn-container'>
+            <button id='confirm'>Yes</button>
+            <button id='deny'>No</button>
+          </div>
         </div>
       </div>
     `
