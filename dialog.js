@@ -12,8 +12,23 @@ class ReusableDialog extends HTMLElement {
     return ["confirmationMsg"];
   }
 
+  closeModal(){
+    this.shadow.innerHTML = ``;
+  }
+
+  handleModalSelect(type){
+    //Return the message dependent on type (either confirm or deny), then close modal;
+    alert(type);
+    this.closeModal();
+  }
+
   connectedCallback(){
     this.render()
+    let confirmBtn = this.shadow.getElementById('confirm');
+    let denyBtn = this.shadow.getElementById('deny');
+  
+    confirmBtn.addEventListener('click', () => this.handleModalSelect('confirm'))
+    denyBtn.addEventListener('click', () => this.handleModalSelect('deny'))
   }
 
   render(){
