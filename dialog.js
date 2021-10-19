@@ -4,6 +4,14 @@ class ReusableDialog extends HTMLElement {
     this.shadow = this.attachShadow({mode: 'open'})
   }
 
+  get confirmationMsg() {
+    return this.getAttribute("confirmationMsg");
+  }
+
+  static get attributes(){
+    return ["confirmationMsg"];
+  }
+
   connectedCallback(){
     this.render()
   }
@@ -13,12 +21,12 @@ class ReusableDialog extends HTMLElement {
       <div>
         <h2>${this.confirmationMsg}</h2>
         <div class='modal-btn-container'>
-          <button>Yes</button>
-          <button>No</button>
+          <button id='confirm'>Yes</button>
+          <button id='deny'>No</button>
         </div>
       </div>
     `
-  }
-}
+  };
+};
 
 customElements.define("reusable-dialog", ReusableDialog);
