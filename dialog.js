@@ -18,7 +18,6 @@ align-items: center;`
 class ReusableDialog extends HTMLElement {
   constructor(confirmationMsg){
     super();
-    
     this.shadow = this.attachShadow({mode: 'open'})
     this.confirmationMsg = confirmationMsg;
     this.clickedMsg;
@@ -35,6 +34,7 @@ class ReusableDialog extends HTMLElement {
     this.closeModal();
   }
 
+  //Called when element is inserted into the DOM
   connectedCallback(){
     this.render()
     let confirmBtn = this.shadow.getElementById('confirm');
@@ -43,14 +43,28 @@ class ReusableDialog extends HTMLElement {
     confirmBtn.addEventListener('click', () => this.handleModalSelect('confirm'))
     denyBtn.addEventListener('click', () => this.handleModalSelect('deny'))
   }
+
+  //Called when element is removed from DOM
+  disconnectedCallback(){
+    let confirmBtn = this.shadow.getElementById('confirm');
+    let denyBtn = this.shadow.getElementById('deny');
+    confirmBtn.removeEventListener()
+    denyBtn.removeEventListener()
+  }
+
+  //Called when an attribute is modified in any way
+  attributeChangedCallback(attr, oldVal, newVal){
+
+  }
+
   render(){
     this.shadow.innerHTML = `
       <div style='${modalContainerStyle}'>
         <div style='${modalStyle}'>
           <h2>${this.confirmationMsg}</h2>
           <div class='modal-btn-container'>
-            <button id='confirm'>Yes</button>
-            <button id='deny'>No</button>
+            <button id='confirm'>${this.getAttribute('confirm')}</button>
+            <button id='deny'>${this.getAttribute('deny')}</button>
           </div>
         </div>
       </div>
